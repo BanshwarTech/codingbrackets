@@ -29,15 +29,45 @@
     <link rel="stylesheet" href="{{ asset('dist/css/themify-icons/themify-icons.css') }}">
     <link rel="stylesheet" href="{{ asset('dist/css/simple-lineicon/simple-line-icons.css') }}">
     <link rel="stylesheet" href="{{ asset('dist/css/skins/_all-skins.min.css') }}">
+    <!-- Toastr CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" media="print"
+        onload="this.onload=null;this.media='all';">
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
 
     <link rel="stylesheet" href="https://cdn.datatables.net/2.3.0/css/dataTables.dataTables.min.css">
+    <style>
+        /* Success Toast */
+        .toast-success {
+            background-color: #115234 !important;
+            /* Bootstrap success green */
+            color: #ffffff !important;
+        }
+
+        /* Error Toast */
+        .toast-error {
+            background-color: #451318 !important;
+            /* Bootstrap danger red */
+            color: #ffffff !important;
+        }
+
+        /* Warning Toast */
+        .toast-warning {
+            background-color: #4a3c14 !important;
+            /* Bootstrap warning yellow */
+            color: #000000 !important;
+        }
+
+        /* Optional: Close button color for all toasts */
+        .toast-close-button {
+            color: #ffffff !important;
+            opacity: 1;
+        }
+
+        .toast-warning .toast-close-button {
+            color: #000000 !important;
+        }
+    </style>
+
 </head>
 
 <body class="skin-blue sidebar-mini">
@@ -103,14 +133,26 @@
                 <!-- sidebar menu -->
                 <ul class="sidebar-menu" data-widget="tree">
                     <li class="active">
-                        <a href="{{ route('admin.dashboard') }}"> <i class="icon-home"></i>
-                            <span>Dashboard</span>
+                        <a href="{{ route('admin.dashboard') }}"> <i
+                                class="fa fa-home me-2"></i><span>Dashboard</span>
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.ourTeam') }}"> <i class="fa fa-users"></i>
-                            <span>Our Teams</span>
+                        <a href="{{ route('admin.ourTeam') }}"> <i class="fa fa-users me-2"></i><span>Our
+                                Teams</span>
                         </a>
+                    </li>
+                    <li class="header">Servces and Services Content</li>
+                    <li class="treeview">
+                        <a href="#"> <i class="fa fa-globe me-2"></i><span>Services</span> <span
+                                class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>
+                        <ul class="treeview-menu">
+                            <li><a href="{{ route('admin.services') }}"><i class="fa fa-angle-right"></i> Add
+                                    Services</a></li>
+                            <li><a href="apps-compose-mail.html"><i class="fa fa-angle-right"></i> Add Services
+                                    Content</a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </div>
@@ -159,8 +201,8 @@
 
     <!-- jQuery 3 -->
     <script src="{{ asset('dist/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('dist/bootstrap/js/popper.min.js') }}"></script>
     <script src="{{ asset('dist/bootstrap/js/bootstrap.min.js') }}"></script>
-
     <!-- template -->
     <script src="{{ asset('dist/js/bizadmin.js') }}"></script>
 
@@ -175,6 +217,37 @@
 
     <!-- for demo purposes -->
     <script src="{{ asset('dist/js/demo.js') }}"></script>
+
+    <!-- Toastr JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" defer></script>
+    @if (session()->has('success') || session()->has('error') || session()->has('warning'))
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                toastr.options = {
+                    progressBar: true,
+                    positionClass: "toast-top-right",
+                    closeButton: true,
+                    timeOut: 5000
+                };
+
+                let successMessage = "{{ session('success') }}";
+                let errorMessage = "{{ session('error') }}";
+                let warningMessage = "{{ session('warning') }}";
+
+                if (successMessage) {
+                    toastr.success(successMessage);
+                }
+
+                if (errorMessage) {
+                    toastr.error(errorMessage);
+                }
+
+                if (warningMessage) {
+                    toastr.warning(warningMessage);
+                }
+            });
+        </script>
+    @endif
     <script src="https://cdn.datatables.net/2.3.0/js/dataTables.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
