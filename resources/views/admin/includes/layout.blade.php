@@ -149,7 +149,9 @@
                         <ul class="treeview-menu">
                             <li><a href="{{ route('admin.services') }}"><i class="fa fa-angle-right"></i> Add
                                     Services</a></li>
-                            <li><a href="apps-compose-mail.html"><i class="fa fa-angle-right"></i> Add Services
+                            <li><a href="{{ route('admin.services.content') }}"><i class="fa fa-angle-right"></i>
+                                    Add
+                                    Services
                                     Content</a>
                             </li>
                         </ul>

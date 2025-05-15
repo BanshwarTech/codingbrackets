@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\ServicesContentController;
 use App\Http\Controllers\Admin\ServicesController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,5 +27,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('services/post', 'post')->name('services.post');
         Route::get('services/delete/{id}', 'delete')->name('services.delete');
         Route::get('/services/status/{id}/{status}', 'status')->name('services.status');
+    });
+
+    Route::controller(ServicesContentController::class)->group(function () {
+        Route::get('services-content', 'manage')->name('services.content');
+        Route::get('services-content/manage/{id?}', 'manageContent')->name('services.content.manage');
+        Route::post('services-content/manage/post', 'manageContentPost')->name('services.content.manage.post');
+        Route::get('services-content/delete/{id}', 'deleteContent')->name('services.content.delete');
+        Route::get('services-content/status/{id}/{status}', 'statusContent')->name('services.content.status');
     });
 });
