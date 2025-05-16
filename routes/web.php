@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ServicesContentController;
 use App\Http\Controllers\Admin\ServicesController;
+use App\Http\Controllers\Admin\WebsiteController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -37,5 +38,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('services-content/manage/post', 'manageContentPost')->name('services.content.manage.post');
         Route::get('services-content/delete/{id}', 'deleteContent')->name('services.content.delete');
         Route::get('services-content/status/{id}', 'statusContent')->name('services.content.status');
+    });
+
+    Route::controller(WebsiteController::class)->group(function () {
+        Route::get('website/{id?}', 'index')->name('website');
+        Route::post('website/post', 'post')->name('website.post');
+        Route::get('website/delete/{id}', 'delete')->name('website.delete');
+        Route::get('website/status/{id}', 'status')->name('website.status');
     });
 });

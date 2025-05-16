@@ -132,30 +132,43 @@
 
                 <!-- sidebar menu -->
                 <ul class="sidebar-menu" data-widget="tree">
-                    <li class="active">
-                        <a href="{{ route('admin.dashboard') }}"> <i
-                                class="fa fa-home me-2"></i><span>Dashboard</span>
+                    <li class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+                        <a href="{{ route('admin.dashboard') }}">
+                            <i class="fa fa-home me-2"></i><span>Dashboard</span>
                         </a>
                     </li>
-                    <li>
+
+                    <li class="{{ request()->routeIs('admin.ourTeam') ? 'active' : '' }}">
                         <a href="{{ route('admin.ourTeam') }}"> <i class="fa fa-users me-2"></i><span>Our
                                 Teams</span>
                         </a>
                     </li>
+                    <li class="{{ request()->routeIs('admin.website') ? 'active' : '' }}">
+                        <a href="{{ route('admin.website') }}"> <i class="fa fa-laptop me-2"></i><span>Website
+                                Type</span>
+                        </a>
+                    </li>
                     <li class="header">Servces and Services Content</li>
-                    <li class="treeview">
-                        <a href="#"> <i class="fa fa-globe me-2"></i><span>Services</span> <span
-                                class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>
+                    <li
+                        class="treeview {{ request()->routeIs('admin.services') || request()->routeIs('admin.services.content') ? 'active' : '' }}">
+                        <a href="#">
+                            <i class="fa fa-globe me-2"></i><span>Services</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
                         <ul class="treeview-menu">
-                            <li><a href="{{ route('admin.services') }}"><i class="fa fa-angle-right"></i> Add
-                                    Services</a></li>
-                            <li><a href="{{ route('admin.services.content') }}"><i class="fa fa-angle-right"></i>
-                                    Add
-                                    Services
-                                    Content</a>
+                            <li class="{{ request()->routeIs('admin.services') ? 'active' : '' }}">
+                                <a href="{{ route('admin.services') }}"><i class="fa fa-angle-right"></i> Add
+                                    Services</a>
+                            </li>
+                            <li class="{{ request()->routeIs('admin.services.content') ? 'active' : '' }}">
+                                <a href="{{ route('admin.services.content') }}"><i class="fa fa-angle-right"></i> Add
+                                    Services Content</a>
                             </li>
                         </ul>
                     </li>
+
                 </ul>
             </div>
             <!-- /.sidebar -->

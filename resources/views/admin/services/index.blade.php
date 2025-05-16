@@ -56,7 +56,8 @@
                                                     <td>{{ $serve->name }}</td>
                                                     <td>
                                                         <a href="{{ route('admin.services', $serve->id) }}"
-                                                            class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>
+                                                            class="btn btn-sm btn-primary"><i
+                                                                class="fa fa-edit"></i>
                                                             Edit</a>
                                                         ||
                                                         <div class="btn-group">
@@ -64,6 +65,7 @@
                                                                 class="btn btn-secondary btn-sm dropdown-toggle"
                                                                 data-toggle="dropdown" aria-haspopup="true"
                                                                 aria-expanded="false">
+                                                                <i class="fa fa-toggle-down"></i>
                                                                 {{ $serve->status == 'active' ? 'Active' : 'Inactive' }}
                                                             </button>
                                                             <div class="dropdown-menu">
