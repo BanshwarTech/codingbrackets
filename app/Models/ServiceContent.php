@@ -16,6 +16,7 @@ class ServiceContent extends Model
         'main_heading',
         'main_content',
         'features_heading',
+        'image',
         'features',
         'status',
     ];

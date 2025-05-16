@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('main_heading')->nullable();
             $table->text('main_content')->nullable();
             $table->string('features_heading')->nullable();
+            $table->string('image')->nullable();
             $table->text('features')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();

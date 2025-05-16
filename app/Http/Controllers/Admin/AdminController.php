@@ -45,7 +45,7 @@ class AdminController extends Controller
         $validator = Validator::make($req->all(), [
             'name' => 'required|string|max:255',
             'role' => 'required|string|max:255',
-            'profile_image' => $req->input('id') ? 'required|mimes:jpeg,png,jpg,gif,svg,webp,svg+xml' : 'nullable|mimes:jpeg,png,jpg,gif,svg,webp,svg+xml',
+            'profile_image' => $req->input('id') ? 'nullable|mimes:jpeg,png,jpg,gif,svg,webp,svg+xml' : 'required|mimes:jpeg,png,jpg,gif,svg,webp,svg+xml',
             'linkedin_url' => 'nullable|string|max:255',
             'twitter_url' => 'nullable|string|max:255',
         ]);
@@ -87,5 +87,32 @@ class AdminController extends Controller
         $team->save();
 
         return redirect()->route('admin.ourTeam')->with('success', $msg);
+    }
+    public function deleteTeamMember($id)
+    {
+        $team = OurTeam::find($id);
+        if ($team) {
+            if (!empty($team->profile_image)) {
+                $oldPath = 'public/our-team/' . $team->profile_image;
+                if (Storage::exists($oldPath)) {
+                    Storage::delete($oldPath);
+                }
+            }
+            $team->delete();
+            return redirect()->route('admin.ourTeam')->with('success', 'Our Team deleted successfully!');
+        } else {
+            return redirect()->route('admin.ourTeam')->with('error', 'Our Team not found!');
+        }
+    }
+    public function statusTeamMember($id)
+    {
+        $team = OurTeam::find($id);
+        if ($team) {
+            $team->status = $team->status == 'active' ? 'inactive' : 'active';
+            $team->save();
+            return redirect()->route('admin.ourTeam')->with('success', 'Our Team status updated successfully!');
+        } else {
+            return redirect()->route('admin.ourTeam')->with('error', 'Our Team not found!');
+        }
     }
 }

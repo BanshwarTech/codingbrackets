@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ServiceContent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -27,7 +28,7 @@ class ServicesContentController extends Controller
 
     public function manageContentPost(Request $req)
     {
-        // dd($req->all());
+        // dd($req);
         // Validation
         $validator = Validator::make($req->all(), [
             'service_id' => 'required|exists:services,id',
@@ -37,6 +38,7 @@ class ServicesContentController extends Controller
             'main_content' => 'required|string',
             'features_heading' => 'required|string',
             'features' => 'required|string',
+            'image' => $req->input('id') ? 'nullable|mimes:jpeg,png,jpg,gif,svg,webp,svg+xml' : 'required|mimes:jpeg,png,jpg,gif,svg,webp,svg+xml',
         ]);
 
 
@@ -55,10 +57,23 @@ class ServicesContentController extends Controller
             $msg = 'Service content created successfully!';
         }
 
+        // Handle image
+        if ($req->hasFile('image')) {
+            if (!empty($serviceContent->image)) {
+                $oldPath = 'public/service/' .  $serviceContent->image;
+                if (Storage::exists($oldPath)) {
+                    Storage::delete($oldPath);
+                }
+            }
+
+            $image = $req->file('image');
+            $image_name = time() . '.' . $image->getClientOriginalExtension();
+            Storage::disk('public')->putFileAs('service/', $image, $image_name);
+            $serviceContent->image = $image_name;
+        }
+
         $serviceContent->service_id = $req->input('service_id');
         $serviceContent->title = $req->input('title');
-
-
         $serviceContent->short_heading = $req->input('short_heading');
         $serviceContent->main_heading = $req->input('main_heading');
         $serviceContent->main_content = $req->input('main_content');
@@ -67,5 +82,28 @@ class ServicesContentController extends Controller
         $serviceContent->status = 'active';
         $serviceContent->save();
         return redirect()->route('admin.services.content')->with('success', $msg);
+    }
+
+
+    public function deleteContent($id)
+    {
+        $serviceContent = ServiceContent::find($id);
+        if ($serviceContent) {
+            $serviceContent->delete();
+            return redirect()->route('admin.services.content')->with('success', 'Service content deleted successfully!');
+        } else {
+            return redirect()->route('admin.services.content')->with('error', 'Service content not found!');
+        }
+    }
+    public function statusContent($id)
+    {
+        $serviceContent = ServiceContent::find($id);
+        if ($serviceContent) {
+            $serviceContent->status = $serviceContent->status == 'active' ? 'inactive' : 'active';
+            $serviceContent->save();
+            return redirect()->route('admin.services.content')->with('success', 'Service content status updated successfully!');
+        } else {
+            return redirect()->route('admin.services.content')->with('error', 'Service content not found!');
+        }
     }
 }

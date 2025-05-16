@@ -3,9 +3,10 @@
 @section('admin-content')
 
     <div class="card">
-        <div class="card-header d-flex justify-content-between align-items-center ">
-            <h3 class="card-title mb-0 fw-bold fs-4">Team</h3>
-            <a href="{{ route('admin.our-team.manage') }}" class="btn btn-primary float-end">Manage Our Team</a>
+        <div class="card-header bg-blue d-flex justify-content-between align-items-center">
+            <h5 class="text-white m-b-0">Team</h5>
+            <a href="{{ route('admin.our-team.manage') }}" class="btn btn-secondary btn-sm float-end"><i
+                    class="fa fa-plus-square"></i> Manage Our Team</a>
         </div>
         <div class="card-body">
 
@@ -39,9 +40,29 @@
                                             <td>{{ $team->twitter_url }}</td>
                                             <td>
                                                 <a href="{{ route('admin.our-team.manage', $team->id) }}"
-                                                    class="btn btn-sm btn-primary"><i
-                                                        class="fa-regular fa-pen-to-square"></i>
-                                                    Edit</a>
+                                                    class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>
+                                                    Edit</a>||
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-secondary btn-sm dropdown-toggle"
+                                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        {{ $team->status == 'active' ? 'Active' : 'Inactive' }}
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('admin.our-team.status', ['id' => $team->id]) }}">
+                                                            Active
+                                                        </a>
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('admin.our-team.status', ['id' => $team->id]) }}">
+                                                            InActive</a>
+                                                    </div>
+                                                </div>
+                                                ||
+                                                <a href="{{ route('admin.our-team.delete', $team->id) }}"
+                                                    class="btn btn-sm btn-danger"
+                                                    onclick="return confirm('Are you sure you want to delete this team member ({{ $team->name }})?')">
+                                                    <i class="fa fa-trash-o"></i> Delete
+                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach

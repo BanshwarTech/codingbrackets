@@ -8,7 +8,9 @@
 
                 <div class="card-header bg-blue d-flex justify-content-between align-items-center ">
                     <h5 class="text-white m-b-0">Services Content</h5>
-                    <a href="{{ route('admin.services.content.manage') }}" class="btn btn-secondary float-end">Manage Service
+                    <a href="{{ route('admin.services.content.manage') }}" class="btn btn-secondary float-end btn-sm"> <i
+                            class="fa fa-plus-square"></i> Manage
+                        Service
                         Content</a>
                 </div>
                 <div class="card-body">
@@ -34,33 +36,32 @@
                                                     <td>{{ $serve->title }}</td>
                                                     <td>
                                                         <a href="{{ route('admin.services.content.manage', $serve->id) }}"
-                                                            class="btn btn-sm btn-primary"><i
-                                                                class="fa-regular fa-pen-to-square"></i>
+                                                            class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>
                                                             Edit</a>
                                                         ||
                                                         <div class="btn-group">
                                                             <button type="button"
                                                                 class="btn btn-secondary btn-sm dropdown-toggle"
                                                                 data-toggle="dropdown" aria-haspopup="true"
-                                                                aria-expanded="false">
-                                                                {{ $serve->status == 'active' ? 'Active' : 'Inactive' }}
+                                                                aria-expanded="false">{{ $serve->status == 'active' ? 'Active' : 'Inactive' }}
                                                             </button>
                                                             <div class="dropdown-menu">
                                                                 <a class="dropdown-item"
-                                                                    href="{{ route('admin.services.status', ['id' => $serve->id, 'status' => 'active']) }}">
+                                                                    href="{{ route('admin.services.content.status', ['id' => $serve->id]) }}">
                                                                     Active
                                                                 </a>
                                                                 <a class="dropdown-item"
-                                                                    href="{{ route('admin.services.status', ['id' => $serve->id, 'status' => 'inactive']) }}">
+                                                                    href="{{ route('admin.services.content.status', ['id' => $serve->id]) }}">
                                                                     InActive</a>
                                                             </div>
                                                         </div>
                                                         ||
-                                                        <a href="{{ route('admin.services.delete', $serve->id) }}"
+                                                        <a href="{{ route('admin.services.content.delete', $serve->id) }}"
                                                             class="btn btn-sm btn-danger"
-                                                            onclick="return confirm('Are you sure you want to delete this service?')"><i
-                                                                class="fa-regular fa-pen-to-square"></i>
-                                                            Delete</a>
+                                                            onclick="return confirm('Are you sure you want to delete this service content ({{ $serve->title }})?')">
+                                                            <i class="fa fa-trash-o"></i> Delete
+                                                        </a>
+
                                                     </td>
                                                 </tr>
                                             @endforeach

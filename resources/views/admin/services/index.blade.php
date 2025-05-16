@@ -56,8 +56,7 @@
                                                     <td>{{ $serve->name }}</td>
                                                     <td>
                                                         <a href="{{ route('admin.services', $serve->id) }}"
-                                                            class="btn btn-sm btn-primary"><i
-                                                                class="fa-regular fa-pen-to-square"></i>
+                                                            class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>
                                                             Edit</a>
                                                         ||
                                                         <div class="btn-group">
@@ -81,7 +80,7 @@
                                                         <a href="{{ route('admin.services.delete', $serve->id) }}"
                                                             class="btn btn-sm btn-danger"
                                                             onclick="return confirm('Are you sure you want to delete this service?')"><i
-                                                                class="fa-regular fa-pen-to-square"></i>
+                                                                class="fa fa-trash-o"></i>
                                                             Delete</a>
                                                     </td>
                                                 </tr>
