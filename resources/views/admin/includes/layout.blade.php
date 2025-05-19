@@ -168,7 +168,17 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="{{ request()->routeIs('admin.technology') ? 'active' : '' }}">
+                        <a href="{{ route('admin.technology') }}"> <i
+                                class="fa fa-cloud me-2"></i><span>Technologies</span>
+                        </a>
+                    </li>
 
+                    <li class="{{ request()->routeIs('admin.service.offer') ? 'active' : '' }}">
+                        <a href="{{ route('admin.service.offer') }}"> <i class="fa  fa-wrench me-2"></i><span>Offer
+                                Services</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
             <!-- /.sidebar -->

@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\ServiceOfferController;
 use App\Http\Controllers\Admin\ServicesContentController;
 use App\Http\Controllers\Admin\ServicesController;
+use App\Http\Controllers\Admin\TechnologyController;
 use App\Http\Controllers\Admin\WebsiteController;
 use Illuminate\Support\Facades\Route;
 
@@ -45,5 +47,19 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('website/post', 'post')->name('website.post');
         Route::get('website/delete/{id}', 'delete')->name('website.delete');
         Route::get('website/status/{id}', 'status')->name('website.status');
+    });
+
+    Route::controller(TechnologyController::class)->group(function () {
+        Route::get('technology/{id?}', 'index')->name('technology');
+        Route::post('technology/post', 'post')->name('technology.post');
+        Route::get('technology/delete/{id}', 'delete')->name('technology.delete');
+        Route::get('technology/status/{id}', 'status')->name('technology.status');
+    });
+
+    Route::controller(ServiceOfferController::class)->group(function () {
+        Route::get('service-offer/{id?}', 'index')->name('service.offer');
+        Route::post('service-offer/post', 'post')->name('service.offer.post');
+        Route::get('service-offer/delete/{id}', 'delete')->name('service.offer.delete');
+        Route::get('service-offer/status/{id}', 'status')->name('service.offer.status');
     });
 });
