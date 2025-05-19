@@ -90,21 +90,38 @@
 
                         <!-- User Account  -->
                         <li class="dropdown user user-menu p-ph-res"> <a href="#" class="dropdown-toggle"
-                                data-toggle="dropdown"> <img src="{{ asset('dist/img/img1.jpg') }}" class="user-image"
-                                    alt="User Image"> <span class="hidden-xs">Alexander Pierce</span> </a>
+                                data-toggle="dropdown">
+                                @if (session('ADMIN_IMAGE'))
+                                    <img src="{{ asset('uploads/admins/' . session('ADMIN_IMAGE')) }}"
+                                        class="user-image" alt="User Image">
+                                @else
+                                    <img src="{{ asset('user-icon.webp') }}" class="user-image" alt="User Image">
+                                @endif
+                                <span class="hidden-xs">{{ session('ADMIN_NAME') }}</span>
+                            </a>
                             <ul class="dropdown-menu">
                                 <li class="user-header">
-                                    <div class="pull-left user-img"><img src="{{ asset('dist/img/img1.jpg') }}"
-                                            class="img-responsive img-circle" alt="User"></div>
-                                    <p class="text-left">Alexander Pierce <small>alexander@gmail.com</small> </p>
+                                    <div class="pull-left user-img">
+                                        @if (session('ADMIN_IMAGE'))
+                                            <img src="{{ asset('uploads/admins/' . session('ADMIN_IMAGE')) }}"
+                                                class="img-responsive img-circle" alt="User Image">
+                                        @else
+                                            <img src="{{ asset('user-icon.webp') }}" class="img-responsive img-circle"
+                                                alt="User Image">
+                                        @endif
+                                    </div>
+                                    <p class="text-left">{{ session('ADMIN_NAME') }}
+                                        <small>{{ session('ADMIN_EMAIL') }}</small>
+                                    </p>
                                 </li>
-                                <li><a href="#"><i class="icon-profile-male"></i> My Profile</a></li>
+                                {{-- <li><a href="#"><i class="icon-profile-male"></i> My Profile</a></li>
                                 <li><a href="#"><i class="icon-wallet"></i> My Balance</a></li>
                                 <li><a href="#"><i class="icon-envelope"></i> Inbox</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="#"><i class="icon-gears"></i> Account Setting</a></li>
+                                <li><a href="#"><i class="icon-gears"></i> Account Setting</a></li> --}}
                                 <li role="separator" class="divider"></li>
-                                <li><a href="#"><i class="fa fa-power-off"></i> Logout</a></li>
+                                <li><a href="{{ route('admin.logout') }}"><i class="fa fa-power-off"></i> Logout</a>
+                                </li>
                             </ul>
                         </li>
                         <!-- Control Sidebar Toggle Button -->
@@ -120,13 +137,21 @@
             <div class="sidebar">
                 <!-- Sidebar user panel -->
                 <div class="user-panel">
-                    <div class="image text-center"><img src="{{ asset('dist/img/img1.jpg') }}" class="img-circle"
-                            alt="User Image">
+                    <div class="image text-center">
+                        @if (session('ADMIN_IMAGE'))
+                            <img src="{{ asset('uploads/admins/' . session('ADMIN_IMAGE')) }}" class="img-circle"
+                                alt="User Image">
+                        @else
+                            <img src="{{ asset('user-icon.webp') }}" class="img-circle" alt="User Image">
+                        @endif
+
                     </div>
                     <div class="info">
-                        <p>Alexander Pierce</p>
-                        <a href="#"><i class="fa fa-envelope"></i></a> <a href="#"><i
-                                class="fa fa-gear"></i></a> <a href="#"><i class="fa fa-power-off"></i></a>
+                        <p>{{ session('ADMIN_NAME') }}</p>
+                        {{-- <a href="#"><i class="fa fa-envelope"></i> </a>
+                        <a href="#"><i class="fa fa-gear"></i></a> --}}
+                        <a href="{{ route('admin.logout') }}">
+                            <i class="fa fa-power-off"></i></a>
                     </div>
                 </div>
 

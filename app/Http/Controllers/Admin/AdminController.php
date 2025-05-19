@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\AdminLogin;
 use App\Models\OurTeam;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -16,15 +18,63 @@ class AdminController extends Controller
         return view(view: 'admin.login');
     }
 
+    public function loginPost(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $admin = AdminLogin::where('useremail', $request->email)->first();
+
+        if (!$admin) {
+            return back()->withErrors([
+                'email' => 'Email not found.',
+            ])->withInput();
+        }
+
+        if (!Hash::check($request->password, $admin->password)) {
+            return back()->withErrors([
+                'password' => 'Incorrect password.',
+            ])->withInput();
+        }
+
+        // Set session data
+        $request->session()->put('ADMIN_LOGIN', true);
+        $request->session()->put('ADMIN_ID', $admin->id);
+        $request->session()->put('ADMIN_NAME', $admin->username);
+        $request->session()->put('ADMIN_EMAIL', $admin->useremail);
+        $request->session()->put('ADMIN_PROFILE', $admin->profile);
+        $request->session()->put('IS_ADMIN', $admin->is_admin);
+
+        // dd($admin->is_admin);
+        if ($admin->is_admin == 1) {
+            return redirect()->route('admin.dashboard')->with('success', 'Login successful!');
+        } else {
+            return redirect()->route('admin.login')->with('error', 'You are not authorized to access admin panel.');
+        }
+    }
+
+
     public function dashboard()
     {
         return view('admin.dashboard');
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
-        // Logic for logging out the admin
-        return redirect()->route('admin.login');
+        $request->session()->forget([
+            'ADMIN_LOGIN',
+            'ADMIN_ID',
+            'ADMIN_NAME',
+            'ADMIN_EMAIL',
+            'IS_ADMIN'
+        ]);
+        return redirect()->route('admin.login')->with('success', 'Logged out successfully.');
     }
     public function ourTeam()
     {
