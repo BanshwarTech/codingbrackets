@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login to Dashboard</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon.ico') }}">
+    <title>Admin Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <!-- Toastr CSS -->
@@ -174,7 +176,7 @@
 
 
                 <div class="login-footer text-center mt-4">
-                    Go back to Home <a href="#" class="text-primary text-decoration-none">Home</a>
+                    Go back to Home <a href="{{ url('/') }}" class="text-primary text-decoration-none">Home</a>
                 </div>
             </div>
         </div>

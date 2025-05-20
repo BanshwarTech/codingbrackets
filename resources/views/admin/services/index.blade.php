@@ -4,8 +4,12 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card card-outline">
-                <div class="card-header bg-blue">
-                    <h5 class="text-white m-b-0">Add Services</h5>
+                <div class="card-header bg-blue d-flex justify-content-between align-items-center">
+                    <h5 class="text-white m-b-0">{{ isset($service->id) && $service->id != 0 ? 'Update' : 'Create' }}
+                        Services</h5>
+                    <a href="{{ route('admin.services') }}"
+                        class="btn btn-secondary btn-sm float-end {{ is_object($service) && isset($service->id) && $service->id > 0 ? '' : 'd-none' }}"><i
+                            class="fa fa-arrow-left"></i> Back</a>
                 </div>
                 <div class="card-body">
                     <form method="POST" action="{{ route('admin.services.post') }}">
@@ -22,7 +26,9 @@
 
                         <!-- Optional: created_at and updated_at will be auto-managed by backend -->
 
-                        <button type="submit" class="btn btn-success">Submit</button>
+                        <button type="submit"
+                            class="btn btn-success">{{ isset($service->id) && $service->id != 0 ? 'Update' : 'Create' }}
+                        </button>
                     </form>
 
                 </div>
@@ -56,8 +62,7 @@
                                                     <td>{{ $serve->name }}</td>
                                                     <td>
                                                         <a href="{{ route('admin.services', $serve->id) }}"
-                                                            class="btn btn-sm btn-primary"><i
-                                                                class="fa fa-edit"></i>
+                                                            class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>
                                                             Edit</a>
                                                         ||
                                                         <div class="btn-group">

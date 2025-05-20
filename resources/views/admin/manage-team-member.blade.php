@@ -5,7 +5,9 @@
         <div class="col-lg-12">
             <div class="card card-outline">
                 <div class="card-header bg-blue d-flex justify-content-between align-items-center">
-                    <h5 class="text-white m-b-0">Team Member</h5>
+                    <h5 class="text-white m-b-0">{{ isset($team->id) && $team->id != 0 ? 'Update' : 'Create' }}
+                        Team Member
+                    </h5>
                     <a href="{{ route('admin.ourTeam') }}" class="btn btn-secondary btn-sm float-end"> <i
                             class="fa fa-arrow-left"></i> Back</a>
                 </div>
@@ -75,7 +77,9 @@
 
                         <!-- Optional: created_at and updated_at will be auto-managed by backend -->
 
-                        <button type="submit" class="btn btn-success">Submit</button>
+                        <button type="submit"
+                            class="btn btn-success">{{ isset($team->id) && $team->id != 0 ? 'Update' : 'Create' }}
+                        </button>
                     </form>
 
                 </div>

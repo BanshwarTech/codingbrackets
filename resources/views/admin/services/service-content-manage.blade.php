@@ -5,7 +5,9 @@
         <div class="col-lg-12">
             <div class="card card-outline">
                 <div class="card-header bg-blue d-flex justify-content-between align-items-center ">
-                    <h5 class="text-white m-b-0">Team Member</h5>
+                    <h5 class="text-white m-b-0">
+                        {{ isset($services_content->id) && $services_content->id != 0 ? 'Update' : 'Create' }} Service
+                        Content</h5>
                     <a href="{{ route('admin.services.content') }}" class="btn btn-secondary btn-sm float-end"> <i
                             class="fa fa-arrow-left"></i>
                         Back</a>

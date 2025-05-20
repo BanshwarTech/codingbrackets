@@ -5,7 +5,9 @@
         <div class="col-lg-12">
             <div class="card card-outline">
                 <div class="card-header bg-blue d-flex justify-content-between align-items-center">
-                    <h5 class="text-white m-b-0">Add Webite Type</h5>
+                    <h5 class="text-white m-b-0">
+                        {{ isset($website_type->id) && $website_type->id != 0 ? 'Update' : 'Create' }}
+                        Webite Type</h5>
                     <a href="{{ route('admin.website') }}"
                         class="btn btn-secondary btn-sm float-end {{ is_object($website_type) && isset($website_type->id) && $website_type->id > 0 ? '' : 'd-none' }}"><i
                             class="fa fa-arrow-left"></i> Back</a>
@@ -56,7 +58,9 @@
 
                         <!-- Optional: created_at and updated_at will be auto-managed by backend -->
 
-                        <button type="submit" class="btn btn-success">Submit</button>
+                        <button type="submit"
+                            class="btn btn-success">{{ isset($website_type->id) && $website_type->id != 0 ? 'Update' : 'Create' }}
+                        </button>
                     </form>
 
                 </div>

@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="{{ asset('dist/bootstrap/css/bootstrap.min.css') }}">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('dist/img/favicon-16x16.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon.ico') }}">
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
@@ -76,9 +76,10 @@
             <!-- Logo -->
             <a href="index.html" class="logo blue-bg">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini"><img src="{{ asset('dist/img/logo-small.png') }}" alt=""></span>
+                <span class="logo-mini"><img src="{{ asset('logo-small.svg') }}" alt=""></span>
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><img src="{{ asset('dist/img/logo.png') }}" alt=""></span> </a>
+                <span class="logo-lg" style="font-s"><img src="{{ asset('logo-small.svg') }}" alt=""> CODING BRACKETS</span>
+            </a>
             <!-- Header Navbar -->
             <nav class="navbar blue-bg navbar-static-top">
                 <!-- Sidebar toggle button-->
